@@ -1,6 +1,8 @@
 package me.qidongs.rootwebsite;
 
+import me.qidongs.rootwebsite.dao.DiscussPostDao;
 import me.qidongs.rootwebsite.dao.UserDao;
+import me.qidongs.rootwebsite.model.DiscussPost;
 import me.qidongs.rootwebsite.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -18,6 +21,9 @@ public class MapperTes {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private DiscussPostDao discussPostDao;
 
     @Test
     public void testSelectUser(){
@@ -53,6 +59,16 @@ public class MapperTes {
         rows = userDao.updateHeader(150,"http://www.nowcoder.com/102.png");
         System.out.println(rows);
         rows=userDao.updatePassword(150,"newpass");
+    }
+
+    @Test
+    public void SelectPosts(){
+//        List<DiscussPost> list =discussPostDao.selectDiscussPosts(0,0,10);
+//        for (DiscussPost discussPost:list){
+//            System.out.println(discussPost);
+//        }
+        discussPostDao.selectDiscussPostRows(12);
+
     }
 
 }
