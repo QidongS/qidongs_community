@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="https://static.nowcoder.com/images/logo_87_87.png"/>
+    <title>qidongS-Activate Account</title>
+</head>
+<body>
+	<div>
+		<p>
+			<b th:text="${email}"></b>, Hello!
+		</p>
+		<p>
+			You are registering at qidongS.me, this is a activation email, please click on
+			<a th:href="${url} ">the link </a>,
+			to activate you account!
+		</p>
+	</div>
+</body>
+</html>

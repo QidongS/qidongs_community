@@ -1,6 +1,10 @@
 package me.qidongs.rootwebsite;
 
+import me.qidongs.rootwebsite.dao.DiscussPostDao;
+import me.qidongs.rootwebsite.dao.LoginTicketDao;
 import me.qidongs.rootwebsite.dao.UserDao;
+import me.qidongs.rootwebsite.model.DiscussPost;
+import me.qidongs.rootwebsite.model.LoginTicket;
 import me.qidongs.rootwebsite.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -17,7 +22,13 @@ import java.util.Date;
 public class MapperTes {
 
     @Autowired
+    private LoginTicketDao loginTicketDao;
+
+    @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private DiscussPostDao discussPostDao;
 
     @Test
     public void testSelectUser(){
@@ -53,6 +64,39 @@ public class MapperTes {
         rows = userDao.updateHeader(150,"http://www.nowcoder.com/102.png");
         System.out.println(rows);
         rows=userDao.updatePassword(150,"newpass");
+    }
+
+    @Test
+    public void SelectPosts(){
+//        List<DiscussPost> list =discussPostDao.selectDiscussPosts(0,0,10);
+//        for (DiscussPost discussPost:list){
+//            System.out.println(discussPost);
+//        }
+        discussPostDao.selectDiscussPostRows(12);
+
+    }
+
+    @Test
+    public void testInsertLoginTicket(){
+        LoginTicket loginTicket = new LoginTicket();
+        loginTicket.setUserId(101);
+        loginTicket.setStatus(0);
+        loginTicket.setTicket("abc");
+        loginTicket.setExpired(new Date(System.currentTimeMillis()+1000*60));
+        loginTicketDao.insertLoginTicket(loginTicket);
+    }
+
+    @Test
+    public void testSelectLoginTicket(){
+        LoginTicket loginTicket;
+        loginTicket=loginTicketDao.selectByTicket("abc");
+        System.out.println(loginTicket);
+    }
+
+    @Test
+    public void testUpdateLoginTicket(){
+        LoginTicket loginTicket;
+        loginTicketDao.updateStatus("abc",1);
     }
 
 }
