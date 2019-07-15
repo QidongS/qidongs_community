@@ -14,5 +14,5 @@ public interface CommunityConstant {
     int DEFAULT_EXPIRED_SECONDS =3600*12;
 
     //rememberme EXPIRED SECONDS
-    int REMEMBER_EXPIRED_SECONDS = 3600* 24 * 30;
+    int REMEMBER_EXPIRED_SECONDS = 3600* 24 * 10;
 }

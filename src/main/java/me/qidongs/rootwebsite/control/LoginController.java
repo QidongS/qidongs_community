@@ -1,5 +1,7 @@
 package me.qidongs.rootwebsite.control;
 
+import me.qidongs.rootwebsite.dao.LoginTicketDao;
+import me.qidongs.rootwebsite.model.LoginTicket;
 import me.qidongs.rootwebsite.service.UserService;
 import me.qidongs.rootwebsite.util.CommunityConstant;
 import org.apache.commons.lang3.StringUtils;
@@ -20,9 +22,13 @@ public class LoginController implements CommunityConstant {
     @Autowired
     UserService userService;
 
+    @Autowired
+    LoginTicketDao loginTicketDao;
 
     @Value("${server.servlet.context-path}")
     private String contextPath;
+
+
 
     @PostMapping(value = "/user/login")
     public String login(@RequestParam("username") String username,
@@ -60,21 +66,27 @@ public class LoginController implements CommunityConstant {
                               HttpServletResponse response){
 
         //check kaptcha
+        System.out.println("post login evoked");
         String kaptcha =(String) session.getAttribute("kaptcha");
-        System.out.println("correct---->"+kaptcha);
+
         if (StringUtils.isBlank(kaptcha)||StringUtils.isBlank(code)||!kaptcha.equalsIgnoreCase(code)){
             System.out.println(code);
             model.addAttribute("codeMsg","Incorrect code");
             return "/site/login";
         }
 
+        System.out.println("correct---->kaptcha");
         //check account, password (from userservice)
 
-        int expiredSeconds = rememberme==null ? REMEMBER_EXPIRED_SECONDS : DEFAULT_EXPIRED_SECONDS;
+        int expiredSeconds = rememberme == null ?   DEFAULT_EXPIRED_SECONDS: REMEMBER_EXPIRED_SECONDS;
+        System.out.println("expired seconds"+expiredSeconds);
         Map<String,Object> map= userService.login(username,password,expiredSeconds);
         if (map.containsKey("ticket")){
             System.out.println("------>ticket got!");
-            Cookie cookie = new Cookie("ticket",map.get("ticket").toString());
+            String temp = map.get("ticket").toString();
+            System.out.println("what's inside ticket is:"+temp);
+            System.out.println("context path is "+contextPath);
+            Cookie cookie = new Cookie("ticket",temp);
             cookie.setPath(contextPath);
             cookie.setMaxAge(expiredSeconds);
             response.addCookie(cookie);
@@ -89,5 +101,7 @@ public class LoginController implements CommunityConstant {
 
 
     }
+
+
 
 }
