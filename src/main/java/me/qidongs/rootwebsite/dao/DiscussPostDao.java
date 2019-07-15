@@ -16,6 +16,7 @@ public interface DiscussPostDao {
 
 
 
+    int insertDiscussPost(DiscussPost discussPost);
 
 
 
