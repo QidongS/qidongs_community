@@ -39,8 +39,7 @@ public class UserService implements CommunityConstant {
     @Autowired
     private LoginTicketDao loginTicketDao;
 
-    @Value("${community.path.domain")
-    private String domain;
+
 
     @Value("${server.servlet.context-path}")
     private String contextPath;
@@ -125,6 +124,7 @@ public class UserService implements CommunityConstant {
     }
 
     public Map<String,Object> login(String username, String password, int expiredseconds){
+        System.out.println("logggggging in");
         Map<String,Object> map = new HashMap<>();
 
         if(StringUtils.isBlank(username)){
@@ -143,8 +143,6 @@ public class UserService implements CommunityConstant {
             return map;
         }
 
-
-
         //check account status (if email verified)
         if(user.getStatus()==0){
             map.put("usernameMsg","account not verified yet");
@@ -152,25 +150,29 @@ public class UserService implements CommunityConstant {
         }
 
         password=CommunityUtil.generateMD5(password+user.getSalt());
-        System.out.println("my pass"+password);
-        System.out.println("data password---->"+ user.getPassword());
+
         if (!user.getPassword().equals(password)){
             map.put("passwordMsg","password incorrect!");
             return map;
 
         }
 
-        //generate login certificate
+
+        //generate login ticket
         LoginTicket loginTicket = new LoginTicket();
         loginTicket.setTicket(CommunityUtil.generateUUID());
         loginTicket.setStatus(0);
-        loginTicket.setExpired(new Date(System.currentTimeMillis()+expiredseconds*1000));
+        Date tempdate = new Date(System.currentTimeMillis()+expiredseconds*1000);
+
+        loginTicket.setExpired(tempdate);
+
         loginTicket.setUserId(user.getId());
 
         loginTicketDao.insertLoginTicket(loginTicket);
 
 
         map.put("ticket",loginTicket.getTicket());
+
 
         return map;
     }
@@ -180,4 +182,12 @@ public class UserService implements CommunityConstant {
     }
 
 
+    public LoginTicket findLoginTicket(String ticket){
+        return loginTicketDao.selectByTicket(ticket);
+    }
+
+
+    public int updateProfilePhoto(int userId, String headrUrl){
+        return userDao.updateHeader(userId,headrUrl);
+    }
 }
