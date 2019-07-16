@@ -18,7 +18,6 @@ public class User {
     private String headerUrl;
     private Date createTime;
 
-
     public int getId() {
         return id;
     }
@@ -87,8 +86,8 @@ public class User {
         return headerUrl;
     }
 
-    public void setHeaderUrl(String headUrl) {
-        this.headerUrl = headUrl;
+    public void setHeaderUrl(String headerUrl) {
+        this.headerUrl = headerUrl;
     }
 
     public Date getCreateTime() {

@@ -19,5 +19,10 @@ public interface DiscussPostDao {
     int insertDiscussPost(DiscussPost discussPost);
 
 
+    DiscussPost selectDiscussPostById(int id);
+
+    //database has duplicate field comment count in table discusspost
+    //update it when new comment is inserted
+    int updateCommentCount(int id, int commentCount);
 
 }
