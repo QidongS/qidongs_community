@@ -99,4 +99,10 @@ public class MapperTes {
         loginTicketDao.updateStatus("abc",1);
     }
 
+    @Test
+    public void testDiscussSelectById(){
+        //DiscussPost discussPost= discussPostDao.selectDiscussPostById(234);
+        discussPostDao.selectDiscussPostById(234);
+        //System.out.println(discussPost);
+    }
 }
