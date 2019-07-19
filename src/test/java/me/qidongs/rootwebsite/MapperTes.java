@@ -2,9 +2,11 @@ package me.qidongs.rootwebsite;
 
 import me.qidongs.rootwebsite.dao.DiscussPostDao;
 import me.qidongs.rootwebsite.dao.LoginTicketDao;
+import me.qidongs.rootwebsite.dao.MessageDao;
 import me.qidongs.rootwebsite.dao.UserDao;
 import me.qidongs.rootwebsite.model.DiscussPost;
 import me.qidongs.rootwebsite.model.LoginTicket;
+import me.qidongs.rootwebsite.model.Message;
 import me.qidongs.rootwebsite.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,6 +32,8 @@ public class MapperTes {
     @Autowired
     private DiscussPostDao discussPostDao;
 
+    @Autowired
+    private MessageDao messageDao;
     @Test
     public void testSelectUser(){
         User user =userDao.selectById(101);
@@ -104,5 +108,27 @@ public class MapperTes {
         //DiscussPost discussPost= discussPostDao.selectDiscussPostById(234);
         discussPostDao.selectDiscussPostById(234);
         //System.out.println(discussPost);
+    }
+
+    @Test
+    public void testMessageSelect(){
+        List<Message> list= messageDao.selectConversations(111,0,20);
+        for(Message m: list){
+            System.out.println(m);
+        }
+
+
+        int count = messageDao.selectConversationCount(111);
+        System.out.println(count);
+
+//        list= messageDao.selectLetters("111_112",0,10);
+//        for(Message m: list){
+//            System.out.println(m);
+//        }
+//
+//        int count =messageDao.selectLetterCount("111_112");
+//        System.out.println(count);
+
+        System.out.println(messageDao.selectLetterUnreadCount(131,"111_131"));
     }
 }
