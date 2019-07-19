@@ -49,6 +49,8 @@ public class UserService implements CommunityConstant {
         return userDao.selectById(id);
     }
 
+    public User findUserByName(String name){return userDao.selectByName(name);}
+
     //user status
     public Map<String,Object> register (User user){
         Map<String,Object> map = new HashMap<>();
@@ -108,6 +110,8 @@ public class UserService implements CommunityConstant {
 
         return map;
     }
+
+
 
 
     public int activation(int userId, String code){
