@@ -103,7 +103,7 @@ public class UserService implements CommunityConstant {
         String url = this.pathDomainConfig.getIp() + contextPath + "/activation/" + user.getId()+"/"+user.getActivationCode();
         System.out.println("the URL is---------------->"+url);
         context.setVariable("url",url);
-        String content = templateEngine.process("/mail/activation",context);
+        String content = templateEngine.process("mail/activation",context);
         mailClient.sendMail(user.getEmail(),"Activate Account",content);
 
 
@@ -128,7 +128,6 @@ public class UserService implements CommunityConstant {
     }
 
     public Map<String,Object> login(String username, String password, int expiredseconds){
-        System.out.println("logggggging in");
         Map<String,Object> map = new HashMap<>();
 
         if(StringUtils.isBlank(username)){
