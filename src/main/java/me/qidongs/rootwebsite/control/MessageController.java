@@ -61,7 +61,7 @@ public class MessageController {
         model.addAttribute("letterUnreadCount",letterUnreadCount);
 
 
-        return "/site/letter";
+        return "site/letter";
 
     }
 
@@ -95,7 +95,7 @@ public class MessageController {
             messageService.readMessage(ids);
         }
 
-        return "/site/letter-detail";
+        return "site/letter-detail";
 
     }
 

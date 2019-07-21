@@ -45,7 +45,7 @@ public class UserController {
     @LoginRequired
     @GetMapping(path = "/setting")
     public String getSettingPage(){
-        return "/site/setting";
+        return "site/setting";
     }
 
 
@@ -54,7 +54,7 @@ public class UserController {
     public String uploadHeader(MultipartFile profilePhoto, Model model){
         if(profilePhoto == null){
             model.addAttribute("error","You haven't select any image");
-            return "/site/setting";
+            return "site/setting";
         }
 
         String fileName = profilePhoto.getOriginalFilename();
@@ -62,7 +62,7 @@ public class UserController {
         String suffix = fileName.substring(fileName.lastIndexOf("."));
         if(StringUtils.isBlank(suffix)){
             model.addAttribute("error","Incorrect file type");
-            return "/site/setting";
+            return "site/setting";
 
         }
         //generate random file name to avoid collision
@@ -86,7 +86,7 @@ public class UserController {
 
 
 
-        return "redirect:/index";
+        return "redirect:index";
     }
 
     @GetMapping(path="/header/{fileName}")

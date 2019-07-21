@@ -29,7 +29,7 @@ public class CommentController {
         comment.setCreateTime(new Date());
         commentService.addComment(comment);
 
-        return "redirect:/discuss/detail/"+discussPostId;
+        return "redirect:discuss/detail/"+discussPostId;
     }
 
 }

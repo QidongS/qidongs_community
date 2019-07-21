@@ -1,6 +1,7 @@
 package me.qidongs.rootwebsite.control;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -11,4 +12,11 @@ public class HomeController {
     public String home(){
         return "home";
     }
+
+
+    @GetMapping("/dashboard")
+    public String Dashboard(){
+        return "site/dashboard";
+    }
+
 }
