@@ -38,7 +38,7 @@ public class LoginController implements CommunityConstant {
             //login success
 
             session.setAttribute("loginUser",username);
-            return "redirect:main.html";
+            return "redirect:/main.html";
         }
         else{
             map.put("msg","Incorrect username/password");
@@ -56,7 +56,7 @@ public class LoginController implements CommunityConstant {
     @GetMapping("/logout")
     public String logout(@CookieValue("ticket") String ticket){
         userService.logout(ticket);
-        return "redirect:login";
+        return "redirect:/login";
     }
 
 
@@ -91,7 +91,7 @@ public class LoginController implements CommunityConstant {
             cookie.setMaxAge(expiredSeconds);
             response.addCookie(cookie);
 
-            return "redirect:index";
+            return "redirect:/index";
         }else {
             model.addAttribute("usernameMsg",map.get("usernameMsg"));
             model.addAttribute("passwordMsg",map.get("passwordMsg"));

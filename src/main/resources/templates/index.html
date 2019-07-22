@@ -131,7 +131,7 @@
 							<div class="text-muted font-size-12">
 								<u class="mr-3" th:utext="${map.user.username}">User1</u> created <b th:text="${#dates.format(map.post.createTime,'yyyy-MM-dd HH:mm:ss')}">2019-04-15 15:32:18</b>
 								<ul class="d-inline float-right">
-									<li class="d-inline ml-2">Upvote 11</li>
+									<li class="d-inline ml-2">LIKE <span th:text="${map.likeCount}">11</span> </li>
 									<li class="d-inline ml-2">|</li>
 									<li class="d-inline ml-2">Comment <span th:text="${map.post.commentCount}"></span></li>
 								</ul>
