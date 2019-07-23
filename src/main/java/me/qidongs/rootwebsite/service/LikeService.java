@@ -20,14 +20,12 @@ public class LikeService {
         //if no such key then add a like
         boolean isMember = redisTemplate.opsForSet().isMember(entityLikeKey,userId);
         if (isMember){
-
             redisTemplate.opsForSet().remove(entityLikeKey,userId);
         }
         else
         {
             redisTemplate.opsForSet().add(entityLikeKey,userId);
         }
-
     }
 
     //get like count
