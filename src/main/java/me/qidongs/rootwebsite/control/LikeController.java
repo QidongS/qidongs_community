@@ -24,10 +24,10 @@ public class LikeController {
     @LoginRequired
     @PostMapping("/like")
     @ResponseBody
-    public String like(int entityType, int entityId){
+    public String like(int entityType, int entityId, int entityUserId){
         User user = hostHolder.getUser();
         //do upvote
-        likeService.like(user.getId(),entityType,entityId);
+        likeService.like(user.getId(),entityType,entityId,entityUserId);
 
 
         //get like count

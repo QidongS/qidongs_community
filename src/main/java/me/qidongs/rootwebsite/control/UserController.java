@@ -3,6 +3,7 @@ package me.qidongs.rootwebsite.control;
 import me.qidongs.rootwebsite.annotation.LoginRequired;
 import me.qidongs.rootwebsite.config.PathDomainConfig;
 import me.qidongs.rootwebsite.model.User;
+import me.qidongs.rootwebsite.service.LikeService;
 import me.qidongs.rootwebsite.service.UserService;
 import me.qidongs.rootwebsite.util.CommunityUtil;
 import me.qidongs.rootwebsite.util.HostHolder;
@@ -35,6 +36,9 @@ public class UserController {
 
     @Autowired
     private HostHolder hostHolder;
+
+    @Autowired
+    private LikeService likeService;
 
     @Value("server.servlet.context-path")
     private String contextPath;
@@ -107,6 +111,25 @@ public class UserController {
 
 
     }
+
+    @GetMapping("/profile/{userId}")
+    public String getProfilePage(@PathVariable("userId") int userId, Model model){
+        User user = userService.findUserById(userId);
+        if(user ==  null){
+            throw new RuntimeException("User not exist");
+        }
+
+        //User
+        model.addAttribute("user",user);
+        System.out.println("userId got");
+        //like count
+        int likeCount = likeService.getUserLikeCount(userId);
+        model.addAttribute("likeCount",likeCount);
+
+        return "site/profile";
+    }
+
+
 
 
 }
