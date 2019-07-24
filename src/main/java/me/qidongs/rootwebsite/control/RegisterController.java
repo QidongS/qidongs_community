@@ -37,7 +37,7 @@ public class RegisterController implements CommunityConstant {
 
     @GetMapping(value = "/register")
     public String getRegisterPage(){
-        return "/site/register";
+        return "site/register";
     }
 
 
@@ -50,13 +50,13 @@ public class RegisterController implements CommunityConstant {
             //register success
             model.addAttribute("msg","Register Success! Please check your email for verification!");
             model.addAttribute("target","/index");
-            return "/site/operate-result";
+            return "site/operate-result";
         }
         else{
             model.addAttribute("usernameMsg",map.get("usernameMsg"));
             model.addAttribute("passwordMsg",map.get("passwordMsg"));
             model.addAttribute("emailMsg",map.get("emailMsg"));
-            return "/site/register";
+            return "site/register";
 
 
         }
@@ -80,7 +80,7 @@ public class RegisterController implements CommunityConstant {
 
         }
 
-        return "/site/operate-result";
+        return "site/operate-result";
     }
 
     @GetMapping(path="/kaptcha")
