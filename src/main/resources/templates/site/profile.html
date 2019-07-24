@@ -65,13 +65,13 @@
 				<div class="position-relative">
 					<ul class="nav nav-tabs">
 						<li class="nav-item">
-							<a class="nav-link active" href="profile.html">个人信息</a>
+							<a class="nav-link active" href="profile.html">My Info</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="my-post.html">我的帖子</a>
+							<a class="nav-link" href="my-post.html">My Posts</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="my-reply.html">我的回复</a>
+							<a class="nav-link" href="my-reply.html">My replies</a>
 						</li>
 					</ul>
 				</div>
@@ -81,14 +81,16 @@
 					<div class="media-body">
 						<h5 class="mt-0 text-warning">
 							<span th:utext="${user.username}">username</span>
-							<button type="button" class="btn btn-info btn-sm float-right mr-5 follow-btn">Follow -></button>
+							<input type="hidden" id="entityId" th:value="${user.id}">
+							<button type="button" th:class="|btn ${hasFollowed?'btn-secondary':'btn-info'} btn-sm float-right mr-5 follow-btn|"
+									th:text="${hasFollowed?'Followed':'Follow Now'}" th:if="${loginUser!=null&&loginUser.id!=user.id}">Follow Now </button>
 						</h5>
 						<div class="text-muted mt-3">
 							<span>Created <i class="text-muted" th:text="${#dates.format(user.createTime,'yyyy-MM-dd HH:mm:ss')}">2015-06-12 15:20:12</i></span>
 						</div>
 						<div class="text-muted mt-3 mb-5">
-							<span>Follows <a class="text-primary" href="followee.html">5</a> people</span>
-							<span class="ml-4">Followers: <a class="text-primary" href="follower.html">123</a> </span>
+							<span>Followed <a class="text-primary" th:text="${followeeCount}">5</a> people</span>
+							<span class="ml-4">Followers: <a class="text-primary" th:text="${followerCount}">1</a> </span>
 							<span class="ml-4">Got <i class="text-danger" th:text="${likeCount}">7</i> Likes</span>
 						</div>
 					</div>
