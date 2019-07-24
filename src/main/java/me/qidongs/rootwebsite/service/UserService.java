@@ -93,6 +93,7 @@ public class UserService implements CommunityConstant {
         user.setStatus(0);
         user.setActivationCode(CommunityUtil.generateUUID());
         user.setHeaderUrl(String.format("http://images.nowcoder.com/head/%dt.png",new Random().nextInt(1000)));
+        user.setCreateTime(new Date());
         userDao.insertUser(user);
 
 
