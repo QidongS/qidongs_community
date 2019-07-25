@@ -10,6 +10,8 @@ public class RedisKeyUtil {
     private static final String PREFIX_FOLLOWEE = "followee";
     private static final String PREFIX_KAPTCHA = "kaptcha";
     private static final String PREFIX_TICKET = "ticket";
+    private static final String PREFIX_USER = "user";
+
     // like:entity:entityType:entityId -> set(userId)
     public static String getEntityLikeKey(int entityType, int entityId){
         return PREFIX_ENTITY_LIKE+SPLIT+entityType+SPLIT+entityId;
@@ -44,6 +46,9 @@ public class RedisKeyUtil {
         return PREFIX_TICKET+SPLIT+ticket;
     }
 
+    public static String getUserKey(int userId){
+        return PREFIX_USER+SPLIT+userId;
+    }
 
 
 

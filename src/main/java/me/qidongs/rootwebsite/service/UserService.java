@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class UserService implements CommunityConstant {
@@ -49,10 +50,17 @@ public class UserService implements CommunityConstant {
 
 
     public User findUserById(int id){
-        return userDao.selectById(id);
+        User user = getCache(id);
+        if (user==null){
+            user  = initCache(id);
+        }
+        return user;
     }
 
-    public User findUserByName(String name){return userDao.selectByName(name);}
+
+    public User findUserByName(String name){
+        return userDao.selectByName(name);
+    }
 
     //user status
     public Map<String,Object> register (User user){
@@ -125,6 +133,7 @@ public class UserService implements CommunityConstant {
             return ACTIVATION_REPEAT;
         }else if(user.getActivationCode().equals(code)){
             userDao.updateStatus(userId,1);
+            clearCache(userId);
             return ACTIVATION_SUCCESS;
         }else
             return ACTIVATION_FAILURE;
@@ -204,6 +213,28 @@ public class UserService implements CommunityConstant {
 
 
     public int updateProfilePhoto(int userId, String headrUrl){
-        return userDao.updateHeader(userId,headrUrl);
+        int rows = userDao.updateHeader(userId,headrUrl);
+        clearCache(userId);
+        return rows;
+    }
+
+    // attempt: find user from redis
+    private User getCache(int userId){
+        String redisKey = RedisKeyUtil.getUserKey(userId);
+        return (User) redisTemplate.opsForValue().get(redisKey);
+    }
+
+    // if failed reinitialize redis
+    private User initCache(int userId){
+        User user = userDao.selectById(userId);
+        String redisKey = RedisKeyUtil.getUserKey(userId);
+        redisTemplate.opsForValue().set(redisKey,user, 3600, TimeUnit.SECONDS);
+        return user;
+    }
+
+    // if data has been changed, clean redis
+    private void clearCache(int userId){
+        String redisKey = RedisKeyUtil.getUserKey(userId);
+        redisTemplate.delete(redisKey);
     }
 }
