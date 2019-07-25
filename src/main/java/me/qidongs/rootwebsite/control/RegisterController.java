@@ -1,39 +1,28 @@
 package me.qidongs.rootwebsite.control;
 
-import com.google.code.kaptcha.Producer;
 import me.qidongs.rootwebsite.model.User;
 import me.qidongs.rootwebsite.service.UserService;
 import me.qidongs.rootwebsite.util.CommunityConstant;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.OutputStream;
+
 
 import java.util.Map;
 
 @Controller
 public class RegisterController implements CommunityConstant {
 
-    private static final Logger logger = LoggerFactory.getLogger(RegisterController.class);
 
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private Producer producer;
+
 
     @GetMapping(value = "/register")
     public String getRegisterPage(){
@@ -83,25 +72,6 @@ public class RegisterController implements CommunityConstant {
         return "site/operate-result";
     }
 
-    @GetMapping(path="/kaptcha")
-    public void getKaptcha(HttpServletResponse response, HttpSession session){
 
-        //get kaptcha
-        String text =producer.createText();
-        BufferedImage image = producer.createImage(text);
-
-        //save to session
-        session.setAttribute("kaptcha",text);
-
-        //output to browser
-        response.setContentType("image/png");
-        try {
-            OutputStream os = response.getOutputStream();
-            ImageIO.write(image,"png",os);
-        }catch (IOException e){
-            logger.error("failed Kaptcha" + e.getMessage());
-        }
-
-    }
 
 }
