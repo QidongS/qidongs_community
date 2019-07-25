@@ -9,7 +9,7 @@ public class RedisKeyUtil {
     private static final String PREFIX_FOLLOWER = "follower";
     private static final String PREFIX_FOLLOWEE = "followee";
     private static final String PREFIX_KAPTCHA = "kaptcha";
-
+    private static final String PREFIX_TICKET = "ticket";
     // like:entity:entityType:entityId -> set(userId)
     public static String getEntityLikeKey(int entityType, int entityId){
         return PREFIX_ENTITY_LIKE+SPLIT+entityType+SPLIT+entityId;
@@ -37,6 +37,11 @@ public class RedisKeyUtil {
     //havn't logged in, don't have userId
     public static String getKaptchaKey(String owner ){
         return PREFIX_KAPTCHA+SPLIT+owner;
+    }
+
+    //Login Ticket
+    public static String getTicketKey(String ticket){
+        return PREFIX_TICKET+SPLIT+ticket;
     }
 
 

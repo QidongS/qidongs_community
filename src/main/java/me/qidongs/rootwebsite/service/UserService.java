@@ -1,16 +1,17 @@
 package me.qidongs.rootwebsite.service;
 
 import me.qidongs.rootwebsite.config.PathDomainConfig;
-import me.qidongs.rootwebsite.dao.LoginTicketDao;
 import me.qidongs.rootwebsite.dao.UserDao;
 import me.qidongs.rootwebsite.model.LoginTicket;
 import me.qidongs.rootwebsite.model.User;
 import me.qidongs.rootwebsite.util.CommunityConstant;
 import me.qidongs.rootwebsite.util.CommunityUtil;
 import me.qidongs.rootwebsite.util.MailClient;
+import me.qidongs.rootwebsite.util.RedisKeyUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 
@@ -36,9 +37,11 @@ public class UserService implements CommunityConstant {
     @Autowired
     private PathDomainConfig pathDomainConfig;
 
-    @Autowired
-    private LoginTicketDao loginTicketDao;
+//    @Autowired
+//    private LoginTicketDao loginTicketDao;
 
+    @Autowired
+    private RedisTemplate redisTemplate;
 
 
     @Value("${server.servlet.context-path}")
@@ -172,7 +175,10 @@ public class UserService implements CommunityConstant {
 
         loginTicket.setUserId(user.getId());
 
-        loginTicketDao.insertLoginTicket(loginTicket);
+        //loginTicketDao.insertLoginTicket(loginTicket);
+        String redisKey= RedisKeyUtil.getTicketKey(loginTicket.getTicket());
+        redisTemplate.opsForValue().set(redisKey,loginTicket);//loginTicket object will be serialized in json format
+
 
 
         map.put("ticket",loginTicket.getTicket());
@@ -181,13 +187,19 @@ public class UserService implements CommunityConstant {
         return map;
     }
 
+    //change login status to 1 when logout
     public void logout(String ticket){
-        loginTicketDao.updateStatus(ticket,1);
+        //loginTicketDao.updateStatus(ticket,1);
+        String redisKey = RedisKeyUtil.getTicketKey(ticket);
+        LoginTicket loginTicket = (LoginTicket) redisTemplate.opsForValue().get(redisKey);
+        loginTicket.setStatus(1);
+        redisTemplate.opsForValue().set(redisKey,loginTicket);
     }
 
 
     public LoginTicket findLoginTicket(String ticket){
-        return loginTicketDao.selectByTicket(ticket);
+        String redisKey = RedisKeyUtil.getTicketKey(ticket);
+        return (LoginTicket) redisTemplate.opsForValue().get(redisKey);
     }
 
 
