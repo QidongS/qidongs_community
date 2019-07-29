@@ -1,6 +1,7 @@
 package me.qidongs.rootwebsite.control;
 
 import me.qidongs.rootwebsite.annotation.LoginRequired;
+import me.qidongs.rootwebsite.event.EventProducer;
 import me.qidongs.rootwebsite.model.User;
 import me.qidongs.rootwebsite.service.LikeService;
 import me.qidongs.rootwebsite.util.CommunityUtil;
@@ -20,6 +21,9 @@ public class LikeController {
 
     @Autowired
     private HostHolder hostHolder;
+
+    @Autowired
+    private EventProducer producer;
 
     @LoginRequired
     @PostMapping("/like")

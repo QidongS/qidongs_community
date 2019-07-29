@@ -1,6 +1,7 @@
 package me.qidongs.rootwebsite.control;
 
 import me.qidongs.rootwebsite.annotation.LoginRequired;
+import me.qidongs.rootwebsite.event.EventProducer;
 import me.qidongs.rootwebsite.model.Page;
 import me.qidongs.rootwebsite.model.User;
 import me.qidongs.rootwebsite.service.FollowService;
@@ -27,6 +28,9 @@ public class FollowController implements CommunityConstant {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private EventProducer producer;
 
     @PostMapping("/follow")
     @ResponseBody

@@ -52,4 +52,8 @@ public class CommentService implements CommunityConstant {
         return rows;
         //
     }
+
+    public Comment findCommentById(int id){
+        return commentDao.selectCommentById(id);
+    }
 }
