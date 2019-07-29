@@ -30,5 +30,9 @@ public interface CommunityConstant {
 
     int SYSTEM_USER_ID=1;
 
+    int STATUS_LIKE =1 ;
+
+    int STATUS_UNLIKE=0;
+
     
 }
