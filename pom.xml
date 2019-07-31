@@ -12,7 +12,7 @@
     <artifactId>rootwebsite</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>rootwebsite</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Spring Boot Web Project</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -103,6 +103,17 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.58</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.8.14</version>
+        </dependency>
+
 
 
     </dependencies>

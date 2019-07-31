@@ -29,6 +29,7 @@ public class CommentController {
         comment.setCreateTime(new Date());
         commentService.addComment(comment);
 
+        System.out.println("comment inserted success!");
         return "redirect:/discuss/detail/"+discussPostId;
     }
 

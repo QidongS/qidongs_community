@@ -8,7 +8,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties("community.path.domain")
 public class PathDomainConfig {
-    private String ip="http://localhost:8080";
+    private String ip="http://qidongs.me:80";
+    //private String ip = "http://127.0.0.1:8080";
     private String upload = "/home/qidong/Downloads";
 
     public String getUpload() {

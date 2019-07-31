@@ -49,7 +49,7 @@ public class LoginController implements CommunityConstant {
 
     @GetMapping("/login")
     public String getLoginPage(){
-        return "/site/login";
+        return "site/login";
     }
 
 
@@ -72,7 +72,7 @@ public class LoginController implements CommunityConstant {
         if (StringUtils.isBlank(kaptcha)||StringUtils.isBlank(code)||!kaptcha.equalsIgnoreCase(code)){
             System.out.println(code);
             model.addAttribute("codeMsg","Incorrect code");
-            return "/site/login";
+            return "site/login";
         }
 
         System.out.println("correct---->kaptcha");
@@ -96,7 +96,7 @@ public class LoginController implements CommunityConstant {
             model.addAttribute("usernameMsg",map.get("usernameMsg"));
             model.addAttribute("passwordMsg",map.get("passwordMsg"));
 
-            return "/site/login";
+            return "site/login";
         }
 
 

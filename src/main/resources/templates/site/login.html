@@ -3,11 +3,11 @@
 <head>
 	<meta charset="utf-8" >
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="icon" href="https://static.nowcoder.com/images/logo_87_87.png"/>
+	<link rel="icon" th:href="@{/asserts/img/favicon-32x32.png}" href="favicon-16x16.png">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
 	<link rel="stylesheet" th:href="@{/css/global.css}" href="../css/global.css" />
 	<link rel="stylesheet" th:href="@{/css/login.css}" href="../css/login.css" />
-	<title>牛客网-登录</title>
+	<title>Login Page</title>
 </head>
 <body>
 	<div class="nk-container">
@@ -62,125 +62,65 @@
 		<!-- 内容 -->
 		<div class="main">
 			<div class="container pl-5 pr-5 pt-3 pb-3 mt-3 mb-3">
-				<h3 class="text-center text-info border-bottom pb-3">登&nbsp;&nbsp;录</h3>
+				<h3 class="text-center text-info border-bottom pb-3">Log&nbsp;&nbsp;in</h3>
 				<form class="mt-5" method="post" th:action="@{/login}">
 					<div class="form-group row">
-						<label for="username"  class="col-sm-2 col-form-label text-right">账号:</label>
+						<label for="username"  class="col-sm-2 col-form-label text-right">Username:</label>
 						<div class="col-sm-10">
 							<input type="text" th:class="|form-control ${usernameMsg!=null?'is-invalid':''}| " id="username"
 								   th:value="${param.username}"
-								   name="username" placeholder="请输入您的账号!" required>
+								   name="username" placeholder="Please enter your username!" required>
 							<div class="invalid-feedback" th:text="${usernameMsg}">
-								该账号不存在!
+								Invalid account!
 							</div>
 						</div>
 					</div>
 					<div class="form-group row mt-4">
-						<label for="password"  class="col-sm-2 col-form-label text-right">密码:</label>
+						<label for="password"  class="col-sm-2 col-form-label text-right">Password:</label>
 						<div class="col-sm-10">
 							<input type="password" th:class="|form-control ${passwordMsg!=null?'is-invalid':''}| " th:name="password" id="password"
-								   th:value="${param.password}" placeholder="请输入您的密码!" required>
+								   th:value="${param.password}" placeholder="Reenter your password!" required>
 							<div class="invalid-feedback" th:text="${passwordMsg}">
-								密码长度不能小于8位!
+								at least 8 digits!
 							</div>							
 						</div>
 					</div>
 					<div class="form-group row mt-4">
-						<label for="verifycode" class="col-sm-2 col-form-label text-right">验证码:</label>
+						<label for="verifycode" class="col-sm-2 col-form-label text-right">Verification code:</label>
 						<div class="col-sm-6">
-							<input type="text" th:class="|form-control ${codeMsg!=null?'is-invalid':''}| "  name="code" id="verifycode" placeholder="请输入验证码!">
+							<input type="text" th:class="|form-control ${codeMsg!=null?'is-invalid':''}| "  name="code" id="verifycode" placeholder="Enter Verification code here!">
 							<div class="invalid-feedback" th:text="${codeMsg}">
-								验证码不正确!
+								Incorrect!
 							</div>
 						</div>
 						<div class="col-sm-4">
 							<img th:src="@{/kaptcha}" id="kaptcha" src="../img/captcha.png" style="width:100px;height:40px;" class="mr-2"/>
-							<a href="javascript:create_kaptcha();" class="font-size-12 align-bottom">刷新验证码</a>
+							<a href="javascript:create_kaptcha();" class="font-size-12 align-bottom">not clear?</a>
 						</div>
 					</div>				
 					<div class="form-group row mt-4">
 						<div class="col-sm-2"></div>
 						<div class="col-sm-10">
 							<input type="checkbox" id="remember-me" name="rememberme" th:checked="${param.rememberme}">
-							<label class="form-check-label" for="remember-me">记住我</label>
-							<a href="forget.html" class="text-danger float-right">忘记密码?</a>
+							<label class="form-check-label" for="remember-me">Remember me</label>
+							<a href="forget.html" class="text-danger float-right">Forget?</a>
 						</div>
 					</div>				
 					<div class="form-group row mt-4">
 						<div class="col-sm-2"></div>
 						<div class="col-sm-10 text-center">
-							<button type="submit" class="btn btn-info text-white form-control">立即登录</button>
+							<button type="submit" class="btn btn-info text-white form-control">Login</button>
 						</div>
 					</div>
 				</form>				
 			</div>
 		</div>
 
-		<!-- 尾部 -->
-		<footer class="bg-dark">
-			<div class="container">
-				<div class="row">
-					<!-- 二维码 -->
-					<div class="col-4 qrcode">
-						<img src="https://uploadfiles.nowcoder.com/app/app_download.png" class="img-thumbnail" style="width:136px;" />
-					</div>
-					<!-- 公司信息 -->
-					<div class="col-8 detail-info">
-						<div class="row">
-							<div class="col">
-								<ul class="nav">
-									<li class="nav-item">
-										<a class="nav-link text-light" href="#">关于我们</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link text-light" href="#">加入我们</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link text-light" href="#">意见反馈</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link text-light" href="#">企业服务</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link text-light" href="#">联系我们</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link text-light" href="#">免责声明</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link text-light" href="#">友情链接</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col">
-								<ul class="nav btn-group-vertical company-info">
-									<li class="nav-item text-white-50">
-										公司地址：北京市朝阳区大屯路东金泉时代3-2708北京牛客科技有限公司
-									</li>
-									<li class="nav-item text-white-50">
-										联系方式：010-60728802(电话)&nbsp;&nbsp;&nbsp;&nbsp;admin@nowcoder.com
-									</li>
-									<li class="nav-item text-white-50">
-										牛客科技©2018 All rights reserved
-									</li>
-									<li class="nav-item text-white-50">
-										京ICP备14055008号-4 &nbsp;&nbsp;&nbsp;&nbsp;
-										<img src="http://static.nowcoder.com/company/images/res/ghs.png" style="width:18px;" />
-										京公网安备 11010502036488号
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</footer>
+
 	</div>
-	<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
-	<script type="text/javascript" src="asserts/js/popper.min.js" th:src="@{/webjars/popper.js/1.14.3/umd/popper.js}"></script>
-	<script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/popper.js/1.14.3/umd/popper.js}"></script>
+	<script type="text/javascript"  th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.js}"></script>
 	<script th:src="@{/js/global.js}"></script>
 	<script>
 		function create_kaptcha() {
