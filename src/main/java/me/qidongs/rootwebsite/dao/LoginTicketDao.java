@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @Mapper
+@Deprecated
 public interface LoginTicketDao {
     @Insert({"insert into login_ticket(user_id,ticket,status,expired) ",
             "values(#{userId},#{ticket},#{status},#{expired})",})

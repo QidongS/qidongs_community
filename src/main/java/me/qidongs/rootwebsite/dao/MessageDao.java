@@ -30,4 +30,17 @@ public interface MessageDao {
 
     //7. helper updateStatus (e.g. when new message is added)
     int updateStatus(List<Integer> ids, int status);
+
+    //8. find latest notification
+    Message selectLatestNotice(int userId, String topic);
+
+    //9.find notification count
+    int selectNoticeCount(int userId, String topic);
+
+    //10.find unread notification
+    int selectNoticeUnreadCount(int userId, String topic);
+
+    //11. notice list
+    List<Message> selectNotices(int userId, String topic, int offset, int limit);
+
 }
