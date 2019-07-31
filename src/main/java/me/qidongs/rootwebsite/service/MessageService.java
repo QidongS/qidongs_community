@@ -48,4 +48,20 @@ public class MessageService {
         return messageDao.updateStatus(ids,1);
     }
 
+    public Message getLatestNotice(int userId, String topic){
+        return messageDao.selectLatestNotice(userId,topic);
+    }
+
+    public int findNoticeUnreadCount(int userId, String topic){
+        return messageDao.selectNoticeUnreadCount(userId,topic);
+    }
+
+    public int findNoticeCount(int userId, String topic){
+        return messageDao.selectNoticeCount(userId,topic);
+    }
+
+    public List<Message> findNotices(int userId, String topic, int offset, int limit){
+        return messageDao.selectNotices(userId,topic,offset,limit);
+    }
+
 }

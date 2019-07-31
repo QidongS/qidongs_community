@@ -30,7 +30,6 @@ public class IndexController implements CommunityConstant {
     private LikeService likeService;
 
     @GetMapping({"/index","/"})
-    //@ResponseBody
     public String index(Model model, Page page){
         page.setRows(discussPostService.findDiscussPostRows(0));
         page.setPath("/index");

@@ -17,5 +17,7 @@ public interface CommentDao {
     //add comment
     int insertComment(Comment comment);
 
+    Comment selectCommentById(int id);
+
 }
 
