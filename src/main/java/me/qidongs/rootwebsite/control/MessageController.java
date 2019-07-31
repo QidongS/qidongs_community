@@ -48,11 +48,8 @@ public class MessageController implements CommunityConstant {
                 map.put("unreadCount",messageService.findLetterUnreadCount(user.getId(),msg.getConversationId()));
                 map.put("letterCount",messageService.findLetterCount(msg.getConversationId()));
                 int targetId= user.getId()==msg.getFromId() ? msg.getToId() : msg.getFromId();
+                map.put("target",userService.findUserById(targetId));
 
-                User temp =userService.findUserById(targetId);
-                System.out.println(temp.getHeaderUrl());
-                map.put("target",temp);
-                //map.put("target",userService.findUserById(targetId));
 
                 conversations.add(map);
             }
@@ -267,6 +264,7 @@ public class MessageController implements CommunityConstant {
                 //content
                 String content = HtmlUtils.htmlUnescape(notice.getContent());
                 Map<String, Object> data = JSONObject.parseObject(content, HashMap.class);
+                map.put("user",userService.findUserById((Integer)data.get("userId")));
                 map.put("entityType",data.get("entityType"));
                 map.put("entityId",data.get("entityId"));
                 map.put("postId",data.get("postId"));
