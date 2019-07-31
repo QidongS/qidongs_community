@@ -2,6 +2,7 @@ package me.qidongs.rootwebsite.control;
 
 import me.qidongs.rootwebsite.annotation.LoginRequired;
 import me.qidongs.rootwebsite.event.EventProducer;
+import me.qidongs.rootwebsite.model.Event;
 import me.qidongs.rootwebsite.model.Page;
 import me.qidongs.rootwebsite.model.User;
 import me.qidongs.rootwebsite.service.FollowService;
@@ -39,6 +40,16 @@ public class FollowController implements CommunityConstant {
 
         User user  = hostHolder.getUser();
         followService.follow(user.getId(),entityType,entityId);
+
+        //fire
+        Event event = new Event()
+                .setTopic(TOPIC_FOLLOW)
+                .setUserId(hostHolder.getUser().getId())
+                .setEntityType(entityType)
+                .setEntityId(entityId)
+                .setEntityUserId(entityId);
+        producer.fireEvent(event);
+
         return CommunityUtil.getJSONString(0,"Followed");
     }
 
