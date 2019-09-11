@@ -1,5 +1,6 @@
 - Q&A Website hleping Chinese users accessing unblocked resources.
 
+You may use username: rsqd password: 123 to login
 
 
 #### Project Directory
